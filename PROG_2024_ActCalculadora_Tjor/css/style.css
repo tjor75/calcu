@@ -5,26 +5,31 @@ body {
     align-items: center;
     height: 100vh;
 }
+/*main {
+    width: 80%;
+}
 #calculadora {
     display: flex;
     flex-wrap: wrap;
+    background: #e7e7e7;
+    margin: 2% 15%;
+    padding: 1%;
 }
 input, button, select, option {
     font-size: 1.5vw;
+    height: 4vw;
     border: solid 1px #000;
-    margin: 0 0 5px 5px;
     border-radius: 5px;
-    height: 3vw;
+    padding: 5px;
 }
-input {
-    width: 40%;
+p { width: 100%; }
+input { width: 40%; }
+input[type="number"] {
+    border-radius: 0 5px 5px 0;
 }
-button {
-    width: 3vw;
+input[type="number"]:first-child {
+    border-radius: 5px 0 0 5px;
 }
-.calcular {
-    width: 100%;
-}
-p {
-    width: 100%;
-}
+select { width: 14%; height: 4vw; border-radius: 0; }
+button { width: 3vw; }
+.calcular { width: 100%; }*/

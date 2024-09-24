@@ -15,6 +15,9 @@ function aniadirACuenta(simboloMatematico) {
     cuentaC2 += simboloMatematico;
     mostrarPantalla(cuentaC2);
 }
+function limpiarCuenta() {
+    cuentaC2 = "";
+}
 function calcularC1(num1, num2, op) {
     let resultado = NaN;
     let num1Float = parseFloat(num1);
@@ -54,13 +57,16 @@ function mostrarPantalla(cadena) {
 
 
 function iniciarCalculadora1() {
+    const inputGroup = document.createElement("div");
+    calculadora.appendChild(pantalla);
+    inputGroup.className = "input-group";
+
     input1C1 = document.createElement("input");
+    input1C1.className = "col-5 form-control";
     input1C1.type = "number";
 
-    input2C1 = document.createElement("input");
-    input2C1.type = "number";
-
     selectOpC1 = document.createElement("select");
+    selectOpC1.className = "col-2 form-select";
     selectOpC1.innerHTML = `
         <option value="${OP_SUMAR}">+</option>
         <option value="${OP_RESTAR}">-</option>
@@ -68,37 +74,79 @@ function iniciarCalculadora1() {
         <option value="${OP_DIVIDIR}">/</option>
     `;
 
+    input2C1 = document.createElement("input");
+    input2C1.className = "col-5 form-control";
+    input2C1.type = "number";
+
     btnCalcular.onclick = () => mostrarResultado(calcularC1(input1C1.value, input2C1.value, selectOpC1.value));
 
-    calculadora.appendChild(input1C1);
-    calculadora.appendChild(selectOpC1);
-    calculadora.appendChild(input2C1);
+    inputGroup.appendChild(input1C1);
+    inputGroup.appendChild(selectOpC1);
+    inputGroup.appendChild(input2C1);
+    calculadora.appendChild(inputGroup);
     terminarIniciarCalculadora();
 }
 function iniciarCalculadora2() {
+    const nums = document.createElement("div");
+    const ops = document.createElement("div");
+    const sumar = document.createElement("button");
+    const restar = document.createElement("button");
+    const multiplicacion = document.createElement("button");
+    const dividir = document.createElement("button");
     let elemento;
+
+    nums.className = "col";
+    ops.className = "col";
     resultadoMostradoC2 = false;
     cuentaC2 = "";
 
+    calculadora.appendChild(pantalla);
+
     for (let i = 0; i < 10; i++) {
-        elemento = document.createElement("button");
+        elemento = document.createElement("button")
+        elemento.className = "col-4 btn btn-secondary";
         elemento.innerText = i;
-        elemento.onclick = () => aniadirACuenta(i);
-        calculadora.appendChild(elemento);
+        elemento.onclick = () => {
+            if (resultadoMostradoC2) {
+                limpiarCuenta();
+                resultadoMostradoC2 = false;
+            }
+            aniadirACuenta(i);
+        }
+        nums.appendChild(elemento);
     }
     
+    calculadora.appendChild(nums);
+
+
+    sumar.className = "col-3 btn btn-secondary";
+    sumar.onclick = () => aniadirACuenta("+");
+    restar.className = "col-3 btn btn-secondary";
+    restar.onclick = () => aniadirACuenta("-");
+    multiplicacion.className = "col-3 btn btn-secondary";
+    multiplicacion.onclick = () => aniadirACuenta("*");
+    dividir.className = "col-3 btn btn-secondary";
+    dividir.onclick = () => aniadirACuenta("/");
+
+    ops.appendChild(sumar);
+    ops.appendChild(restar);
+    ops.appendChild(multiplicacion);
+    ops.appendChild(dividir);
+    calculadora.appendChild(ops);
+
     btnCalcular.onclick = () => {
-        resultadoMostradoC2();
+        resultadoMostradoC2 = true;
         mostrarResultado(eval(cuentaC2));
     }
+    calculadora.className = "row";
     terminarIniciarCalculadora();
 }
 function terminarIniciarCalculadora() {
     btnCalcular.className = "calcular";
+    btnCalcular.className = "col-12 btn btn-secondary";
     btnCalcular.innerText = "=";
     
     calculadora.appendChild(btnCalcular);
-    calculadora.appendChild(pantalla);
 
     opciones.style = "display: none";
 }
